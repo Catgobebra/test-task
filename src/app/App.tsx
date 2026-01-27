@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {BrowserRouter, Routes, Route } from 'react-router-dom';
-import {EmployeeDetailPage} from '../pages/EmployeeListPage'
-import {EmployeeListPage} from '../pages/EmployeeListPage'
-import {NotFound} from '../pages/NotFound'
+import EmployeeDetailPage from '../pages/EmployeeDetailPage'
+ import {EmployeeListPage} from '../pages/EmployeeListPage'
+import {NotFound} from '../pages/NotFound' 
+import './App.css'
 
 function App() {
   return (
