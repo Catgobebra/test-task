@@ -12,6 +12,6 @@
 
 @layer base {
   body {
-    @apply bg-main-bg dark:bg-main-bg-dark text-main-bg-dark dark:text-[#F5F5F5] transition-colors duration-500 ease-in-out;
+    @apply bg-main-bg dark:bg-main-bg-dark text-main-bg-dark dark:text-[#F5F5F5] font-raleway transition-colors duration-500 ease-in-out;
 }
 }

@@ -12,7 +12,7 @@ function Header() {
           alt="Logo" 
         />   
         <div className='flex items-center gap-4 md:gap-12'>
-            <ul className='hidden sm:flex text-right font-raleway text-lg gap-16 lining-nums'>
+            <ul className='hidden sm:flex text-right  text-lg gap-16 lining-nums'>
                 <li>+7 343 290 84 76</li>
                 <li>info@66bit.ru</li>
             </ul>
