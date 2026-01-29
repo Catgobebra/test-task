@@ -4,6 +4,7 @@
 
 @theme {
   --color-main-bg: #FFFFFF;
+  --color-white-main-color: #f5f5f5;
   --color-main-bg-dark: #292929;
   --font-raleway: "Raleway";
 }
@@ -12,6 +13,6 @@
 
 @layer base {
   body {
-    @apply bg-main-bg dark:bg-main-bg-dark text-main-bg-dark dark:text-[#F5F5F5] font-raleway transition-colors duration-500 ease-in-out;
+    @apply bg-main-bg dark:bg-main-bg-dark text-main-bg-dark dark:text-white-main-color font-raleway transition-colors duration-500 ease-in-out;
 }
 }
