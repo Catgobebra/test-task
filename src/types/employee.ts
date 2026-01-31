@@ -9,3 +9,12 @@ export interface EmployeeDetail {
   dateOfEmployment: string
   stack: string[]
 }
+
+export interface EmployeeListParams {
+  Page?: number;
+  Count?: number;
+  Name?: string;
+  Gender?: 'Male' | 'Female' | ('Male' | 'Female')[];
+  Position?: string | string[];
+  Stack?: string | string[];
+}
