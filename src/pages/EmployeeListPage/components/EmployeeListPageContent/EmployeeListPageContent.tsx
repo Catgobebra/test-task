@@ -1,0 +1,48 @@
+import * as React from 'react'
+import { useNavigate } from 'react-router-dom';
+import Breadcrumbs from '../../../../ui/Breadcrumbs';
+import type { EmployeeDetail } from '../../../../types/employee';
+import formatDate from '../../helpers/formatDate';
+
+interface EmployeeListPageContentProps {
+  employees: EmployeeDetail[];
+}
+function EmployeeListPageContent({employees} : EmployeeListPageContentProps) {
+  const navigate = useNavigate();
+
+  return (
+    <main className='container mx-auto px-6'>
+        <div className='h-11 md:h-19.25 flex items-center'>
+            <Breadcrumbs pageList={['Главная', 'Список сотрудников']} />
+        </div>
+        <div className='pb-[20px]'>
+            <table className='w-full text-left'>
+                <thead className='text-[10px] md:text-[20px]'>
+                    <tr className='[&>th]:py-[12px] md:[&>th]:py-[26px] [&>th]:px-[12px] text-[#b0b0b0] [&>th]:font-medium align-top'>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Должность</th>
+                    <th scope="col">Телефон</th>
+                    <th scope="col">Дата рождения</th>
+                    </tr>
+                </thead>
+                <tbody className='text-[12px] md:text-[20px]'>
+                    {employees?.map((employee) => {
+                        return(
+                        <tr key={employee.id}  className='hover:bg-[#f2f2f2] hover:dark:bg-[#3e3e3e] border-b border-b-[#f2f2f2] [&>td]:py-[12px] md:[&>td]:py-6.5 [&>td]:px-3 hover:border-b-transparent
+                         hover:border-t-transparent first:border-t transition-colors duration-150
+                         cursor-pointer align-top'
+                        onClick={() => navigate(`/employees/${employee.id}`)}>
+                        <td className=''>{employee.name}</td>
+                        <td className=''>{employee.position}</td>
+                        <td className='whitespace-nowrap'>{employee.phone}</td>
+                        <td className=''>{formatDate(employee.birthdate)}</td>
+                        </tr>)
+                    })}
+                </tbody>
+            </table>
+        </div>
+    </main>
+  )
+}
+
+export default EmployeeListPageContent;
