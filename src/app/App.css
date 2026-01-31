@@ -14,5 +14,9 @@
 @layer base {
   body {
     @apply bg-main-bg dark:bg-main-bg-dark text-main-bg-dark dark:text-white-main-color font-raleway transition-colors duration-500 ease-in-out;
+  }
 }
+
+tr:has(+ tr:hover) {
+  @apply border-b-transparent;
 }
