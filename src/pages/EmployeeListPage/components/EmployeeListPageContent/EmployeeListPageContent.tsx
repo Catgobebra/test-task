@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom';
-import Breadcrumbs from '../../../../ui/Breadcrumbs';
 import type { EmployeeDetail } from '../../../../types/employee';
 import formatDate from '../../helpers/formatDate';
 import {useEffect, useRef } from 'react';
@@ -49,9 +48,6 @@ function EmployeeListPageContent({employees,
 
   return (
     <main className='container mx-auto px-6'>
-        <div className='h-11 md:h-19.25 flex items-center'>
-            <Breadcrumbs pageList={['Главная', 'Список сотрудников']} />
-        </div>
         <div className='pb-[20px]'>
             <table className='w-full text-left'>
                 <thead className='text-[10px] md:text-[20px]'>
