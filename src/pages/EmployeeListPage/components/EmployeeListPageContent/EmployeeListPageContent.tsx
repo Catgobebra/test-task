@@ -3,12 +3,49 @@ import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../../../../ui/Breadcrumbs';
 import type { EmployeeDetail } from '../../../../types/employee';
 import formatDate from '../../helpers/formatDate';
+import {useEffect, useRef } from 'react';
 
 interface EmployeeListPageContentProps {
   employees: EmployeeDetail[];
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
 }
-function EmployeeListPageContent({employees} : EmployeeListPageContentProps) {
-  const navigate = useNavigate();
+
+function EmployeeListPageContent({employees,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+} : EmployeeListPageContentProps) {
+  const loaderRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
+
+    useEffect(() => {
+    const loaderElement = loaderRef.current
+    if (!loaderElement || !hasNextPage || isFetchingNextPage) {
+        return
+    }
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage()
+      }
+    },
+    {
+      root: null,
+      rootMargin: '10px 0px',
+      threshold: 0.1,
+    }
+  )
+
+    observer.observe(loaderElement)
+
+    return () => {
+        observer.unobserve(loaderElement)
+        observer.disconnect()
+    }
+    }, [hasNextPage, isFetchingNextPage, fetchNextPage])
 
   return (
     <main className='container mx-auto px-6'>
@@ -40,9 +77,10 @@ function EmployeeListPageContent({employees} : EmployeeListPageContentProps) {
                     })}
                 </tbody>
             </table>
+            <div ref={loaderRef} className='text-center text-xl pt-[10px] min-h-[1px]'>{isFetchingNextPage && <span>Загрузка...</span>}</div>
         </div>
     </main>
   )
 }
 
-export default EmployeeListPageContent;
+export default EmployeeListPageContent
