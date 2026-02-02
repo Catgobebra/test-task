@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite';
 import {SearchStore} from '../../../../modules/Search'
 import Breadcrumbs from '../../../../ui/Breadcrumbs';
 import {Search} from '../../../../modules/Search';
-import {MultiSelectMinimal} from '../../../../modules/Select'
+import {MultiSelect} from '../../../../modules/Select'
 import { GENDER, POSITION, STACK } from '../../constant/constants';
 import Button from '../../../../ui/Button';
 import filterStore from '../../../../modules/Select/stores/filter-store';
@@ -55,19 +55,19 @@ const EmployeeListPage = observer(() => {
       <div className='w-full flex justify-between items-center px-3 order-4 mt-6 md:mt-0 md:0'>
         <p className='text-[20px] md:text-[40px] font-bold hidden md:block'>Список сотрудников</p>
         <div className='flex gap-[19px] md:gap-[32px] text-nowrap md:text-wrap'>
-          <MultiSelectMinimal
+          <MultiSelect
       options={POSITION}
       value={filterStore.positions}
       name={"Должность"}
       onChange={filterStore.togglePosition}
        />
-       <MultiSelectMinimal
+       <MultiSelect
       options={GENDER}
       value={filterStore.genders}
       name={"Пол"}
       onChange={filterStore.toggleGender}
        />
-       <MultiSelectMinimal
+       <MultiSelect
       options={STACK}
       value={filterStore.stack}
       name={"Стек технологий"}
