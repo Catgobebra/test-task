@@ -48,7 +48,7 @@ function EmployeeListPageContent({employees,
 
   return (
     <main className='container mx-auto px-6'>
-        <div className='pb-[20px]'>
+        <div className='pb-[20px] overflow-x-auto'>
             <table className='w-full text-left'>
                 <thead className='text-[10px] md:text-[20px]'>
                     <tr className='[&>th]:py-[12px] md:[&>th]:py-[26px] [&>th]:px-[12px] text-[#b0b0b0] [&>th]:font-medium align-top'>
