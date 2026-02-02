@@ -11,10 +11,32 @@ export interface EmployeeDetail {
 }
 
 export interface EmployeeListParams {
-  Page?: number;
-  Count?: number;
-  Name?: string;
-  Gender?: 'Male' | 'Female' | ('Male' | 'Female')[];
-  Position?: string | string[];
-  Stack?: string | string[];
+  Page?: number
+  Count?: number
+  Name?: string
+  Gender?: string | string[]
+  Position?: string | string[]
+  Stack?: string | string[]
+}
+
+export interface EmployeeListParams {
+  Page?: number
+  Count?: number
+  Name?: string
+  Gender?: string | string[]
+  Position?: string | string[]
+  Stack?: string | string[]
+}
+
+export interface Filter {
+  label: string
+  value: string
+  type: 'position' | 'gender' | 'stack'
+}
+
+export interface FiltersState {
+  name: string | undefined;
+  gender: string[];
+  position: string[];
+  stack: string[];
 }
