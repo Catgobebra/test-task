@@ -75,7 +75,7 @@ const EmployeeListPage = observer(() => {
        />
         </div>
       </div>
-      <div className='px-3 mt-[28px]'><Search /></div>
+      <div className='px-3 mt-[28px] md:order-5'><Search /></div>
     </div>
     <div className='mt-[28px] py-2 md:py-0 bg-[#3e3e3e] h-full min-h-[138px] md:min-h-[71px] flex items-center'>
       <div className='container h-full mx-auto px-9 flex flex-col gap-1 md:gap-0
