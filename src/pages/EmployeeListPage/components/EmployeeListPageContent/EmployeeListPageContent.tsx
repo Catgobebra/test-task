@@ -48,10 +48,10 @@ function EmployeeListPageContent({employees,
 
   return (
     <main className='container mx-auto px-6'>
-        <div className='pb-[20px] overflow-x-auto'>
+        <div className='pb-[20px] '>
             <table className='w-full text-left'>
                 <thead className='text-[10px] md:text-[20px]'>
-                    <tr className='[&>th]:py-[12px] md:[&>th]:py-[26px] [&>th]:px-[12px] text-[#b0b0b0] [&>th]:font-medium align-top'>
+                    <tr className='[&>th]:py-[12px] md:[&>th]:py-[26px] [&>th]:px-[12px] text-[#b0b0b0] [&>th]:font-medium md:align-top'>
                     <th scope="col">ФИО</th>
                     <th scope="col">Должность</th>
                     <th scope="col">Телефон</th>
@@ -62,7 +62,7 @@ function EmployeeListPageContent({employees,
                     {employees?.map((employee) => {
                         return(
                         <tr key={employee.id}  className='hover:bg-[#f2f2f2] hover:dark:bg-[#3e3e3e] border-b border-b-[#f2f2f2] [&>td]:py-[12px] md:[&>td]:py-6.5 [&>td]:px-3 hover:border-b-transparent
-                         hover:border-t-transparent first:border-t transition-colors duration-150
+                         hover:border-t-transparent first:border-t first:border-t-[#f2f2f2] transition-colors duration-150
                          cursor-pointer align-top'
                         onClick={() => navigate(`/employees/${employee.id}`)}>
                         <td className=''>{employee.name}</td>
