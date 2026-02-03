@@ -31,14 +31,28 @@
       stack: [],
     })
 
+    function arraysEqual(a: string[], b: string[]) {
+    if (a.length !== b.length) return false;
+    return a.every((val, i) => val === b[i]);
+   }
+
     useEffect(() => {
-    setAppliedFilters({
-      name: currentName || undefined,
-      gender: currentGender,
-      position: currentPosition,
-      stack: currentStack,
-    });
-    }, [])
+      const draft = {
+        name: currentName,
+        gender: currentGender,
+        position: currentPosition,
+        stack: currentStack,
+      };
+
+      if (
+        draft.name !== appliedFilters.name ||
+        !arraysEqual(draft.gender, appliedFilters.gender) ||
+        !arraysEqual(draft.position, appliedFilters.position) ||
+        !arraysEqual(draft.stack, appliedFilters.stack)
+      ) {
+        setAppliedFilters(draft);
+      }
+  }, [appliedFilters.gender, appliedFilters.name, appliedFilters.position, appliedFilters.stack, currentGender, currentName, currentPosition, currentStack]);
 
     const handleApply = () => {
       setAppliedFilters({
