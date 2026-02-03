@@ -5,7 +5,7 @@ export type Theme = ResolvedTheme | 'system'
 
 class ThemeStore {
     theme: Theme = 'system'
-    resolvedTheme: ResolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    resolvedTheme: ResolvedTheme = 'light'
 
     constructor() {
         makeAutoObservable(this)
