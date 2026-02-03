@@ -1,6 +1,8 @@
 import {makeAutoObservable} from 'mobx'
 import type { Filter } from '../../../types/employee'
 
+const STORAGE_KEY = 'filter-v1'
+
 class FilterStore {
     positions: Filter[] = []
     genders: Filter[] = []
@@ -8,6 +10,7 @@ class FilterStore {
 
     constructor() {
         makeAutoObservable(this)
+        this.loadFromStorage()
     }
 
     togglePosition = (filter: Filter) => {
@@ -17,6 +20,7 @@ class FilterStore {
         this.positions = [...this.positions, filter]
         }
         console.log(this.AllFilter)
+        this.saveToStorage()
     }
 
     toggleGender = (filter: Filter) => {
@@ -26,6 +30,7 @@ class FilterStore {
         this.genders = [...this.genders, filter]
         }
         console.log(this.AllFilter)
+        this.saveToStorage()
     }
 
     toggleStack = (filter: Filter) => {
@@ -35,6 +40,7 @@ class FilterStore {
         this.stack = [...this.stack, filter]
         }
         console.log(this.AllFilter)
+        this.saveToStorage()
     }
 
     get AllFilter() {
@@ -63,19 +69,47 @@ class FilterStore {
     }
 
     removeFilter = (filterToRemove: Filter) => {
-    switch (filterToRemove.type) {
-      case 'position':
-        this.positions = this.positions.filter(f => f.value !== filterToRemove.value);
-        break;
-      case 'gender':
-        this.genders = this.genders.filter(f => f.value !== filterToRemove.value);
-        break;
-      case 'stack':
-        this.stack = this.stack.filter(f => f.value !== filterToRemove.value);
-        break;
+        switch (filterToRemove.type) {
+        case 'position':
+            this.positions = this.positions.filter(f => f.value !== filterToRemove.value);
+            break;
+        case 'gender':
+            this.genders = this.genders.filter(f => f.value !== filterToRemove.value);
+            break;
+        case 'stack':
+            this.stack = this.stack.filter(f => f.value !== filterToRemove.value);
+            break;
+            }
+        this.saveToStorage()
     }
+    private saveToStorage() {
+        try {
+        const data = {
+            positions: this.positions,
+            genders:   this.genders,
+            stack:     this.stack,
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+        catch (err) {
+            console.warn('Не удалось сохранить фильтры:', err);
+        }
     }
-    
+    private loadFromStorage() {
+        try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+
+        const data = JSON.parse(saved);
+
+        this.positions = Array.isArray(data.positions) ? data.positions : [];
+        this.genders   = Array.isArray(data.genders)   ? data.genders   : [];
+        this.stack     = Array.isArray(data.stack)     ? data.stack     : [];
+
+        } catch (err) {
+        console.warn('Не удалось загрузить сохранённые фильтры:', err);
+        }
+    }
 }
 
 export default new FilterStore()
