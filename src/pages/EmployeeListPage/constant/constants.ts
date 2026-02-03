@@ -1,5 +1,5 @@
 export const PAGE_SIZE = 10
-export const TIME_CACHE = 10
+export const TIME_CACHE = 5
 
 export const POSITION = [
     { value: "Frontend", label: "Frontend-разработчик", type : "position" as const},

@@ -28,7 +28,7 @@ export const useEmployeesQuery = ({name, gender, position, stack} : useEmployees
         })
         return employees
       },
-      staleTime: 1000 * TIME_CACHE,
+      staleTime: 1000 * 60 * TIME_CACHE,
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage.length < PAGE_SIZE) {
