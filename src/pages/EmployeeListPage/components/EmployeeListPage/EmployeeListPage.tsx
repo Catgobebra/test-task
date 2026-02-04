@@ -11,17 +11,18 @@
   import {Search} from '../../../../modules/Search';
   import {MultiSelect} from '../../../../modules/Select'
   import { GENDER, POSITION, STACK } from '../../constant/constants';
-  import Button from '../../../../ui/Button';
   import filterStore from '../../../../modules/Select/stores/filter-store';
-  import Badge from '../../../../ui/Badge';
   import type { FiltersState } from '../../../../types/employee';
   import { useSyncFiltersWithUrl } from '../../../../hooks/useSyncFiltersWithUrl';
+import FiltersToolbar from '../FiltersToolbar/FiltersToolbar';
+import { arraysEqual } from '../../helpers/equalArray';
 
   const EmployeeListPage = observer(() => {
     const currentName = SearchStore.debouncedQuery
     const currentGender = filterStore.getFilterValues('gender')
     const currentPosition = filterStore.getFilterValues('position')
     const currentStack = filterStore.getFilterValues('stack')
+    
     useSyncFiltersWithUrl()
 
     const [appliedFilters, setAppliedFilters] = useState<FiltersState>({
@@ -31,37 +32,32 @@
       stack: [],
     })
 
-    function arraysEqual(a: string[], b: string[]) {
-    if (a.length !== b.length) return false;
-    return a.every((val, i) => val === b[i]);
-   }
+      useEffect(() => {
+        const draft = {
+          name: currentName,
+          gender: currentGender,
+          position: currentPosition,
+          stack: currentStack,
+        };
 
-    useEffect(() => {
-      const draft = {
-        name: currentName,
-        gender: currentGender,
-        position: currentPosition,
-        stack: currentStack,
-      };
+        if (
+          draft.name !== appliedFilters.name ||
+          !arraysEqual(draft.gender, appliedFilters.gender) ||
+          !arraysEqual(draft.position, appliedFilters.position) ||
+          !arraysEqual(draft.stack, appliedFilters.stack)
+        ) {
+          setAppliedFilters(draft);
+        }
+    }, [appliedFilters.gender, appliedFilters.name, appliedFilters.position, appliedFilters.stack, currentGender, currentName, currentPosition, currentStack]);
 
-      if (
-        draft.name !== appliedFilters.name ||
-        !arraysEqual(draft.gender, appliedFilters.gender) ||
-        !arraysEqual(draft.position, appliedFilters.position) ||
-        !arraysEqual(draft.stack, appliedFilters.stack)
-      ) {
-        setAppliedFilters(draft);
+      const handleApply = () => {
+        setAppliedFilters({
+          name: currentName || undefined,
+          gender: currentGender,
+          position: currentPosition,
+          stack: currentStack,
+        });
       }
-  }, [appliedFilters.gender, appliedFilters.name, appliedFilters.position, appliedFilters.stack, currentGender, currentName, currentPosition, currentStack]);
-
-    const handleApply = () => {
-      setAppliedFilters({
-        name: currentName || undefined,
-        gender: currentGender,
-        position: currentPosition,
-        stack: currentStack,
-      });
-    }
 
     const {data : allEmployees = [],
       isLoading,
@@ -102,20 +98,8 @@
         </div>
         <div className='px-3 mt-[28px] md:order-5'><Search /></div>
       </div>
-      <div className='mt-[28px] py-2 md:py-0 bg-[#f2f2f2] dark:bg-[#3e3e3e] h-full min-h-[138px] md:min-h-[71px] flex items-center'>
-        <div className='container h-full mx-auto px-9 flex flex-col gap-1 md:gap-0
-        md:flex-row items-center justify-between flex-wrap'>
-          <div className='flex flex-wrap gap-[16px] md:gap-[40px] items-center'>
-            <p className='text-[14px] md:text-[20px]'>Выбранные фильтры: </p>
-            <div className='flex gap-[16px] md:gap-[24px] flex-wrap'>
-              {filterStore.AllFilter.map((element, index) => {
-              return (<Badge key={index} onDelete={() => filterStore.removeFilter(element)} badgeText={element.label} />)
-              })}
-            </div>
-          </div>
-          <Button buttonText={'Найти'} onFunc={handleApply} />
-        </div>
-      </div>
+      <FiltersToolbar onApply={handleApply} />
+      
       {isLoading && <Loading LoadingText="Загрузка списка сотрудников..." />}
       {isError && <Error errorMessage={error?.message} ErrorText="Не удалось загрузить" />}
       {!isLoading && allEmployees.length === 0 && <div className="text-center py-10">Сотрудники не найдены</div>}
