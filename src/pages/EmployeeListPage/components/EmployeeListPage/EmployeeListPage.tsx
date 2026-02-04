@@ -1,5 +1,5 @@
   import * as React from 'react'
-  import { useEffect, useState } from 'react';
+  import { useState } from 'react';
   import EmployeeListPageContent from '../EmployeeListPageContent/EmployeeListPageContent';
   import Header from '../../../../components/Header/Header/Header';
   import Loading from '../../../../ui/Loading';
@@ -15,14 +15,14 @@
   import type { FiltersState } from '../../../../types/employee';
   import { useSyncFiltersWithUrl } from '../../../../hooks/useSyncFiltersWithUrl';
 import FiltersToolbar from '../FiltersToolbar/FiltersToolbar';
-import { arraysEqual } from '../../helpers/equalArray';
+import { useSyncAppliedFilters } from '../../hooks/useSyncAppliedFilters';
 
   const EmployeeListPage = observer(() => {
     const currentName = SearchStore.debouncedQuery
     const currentGender = filterStore.getFilterValues('gender')
     const currentPosition = filterStore.getFilterValues('position')
     const currentStack = filterStore.getFilterValues('stack')
-    
+
     useSyncFiltersWithUrl()
 
     const [appliedFilters, setAppliedFilters] = useState<FiltersState>({
@@ -32,24 +32,14 @@ import { arraysEqual } from '../../helpers/equalArray';
       stack: [],
     })
 
-      useEffect(() => {
-        const draft = {
-          name: currentName,
-          gender: currentGender,
-          position: currentPosition,
-          stack: currentStack,
-        };
-
-        if (
-          draft.name !== appliedFilters.name ||
-          !arraysEqual(draft.gender, appliedFilters.gender) ||
-          !arraysEqual(draft.position, appliedFilters.position) ||
-          !arraysEqual(draft.stack, appliedFilters.stack)
-        ) {
-          setAppliedFilters(draft);
-        }
-    }, [appliedFilters.gender, appliedFilters.name, appliedFilters.position, appliedFilters.stack, currentGender, currentName, currentPosition, currentStack]);
-
+    useSyncAppliedFilters({
+      currentName,
+      currentGender,
+      currentPosition,
+      currentStack,
+      appliedFilters,
+      setAppliedFilters,
+    });
       const handleApply = () => {
         setAppliedFilters({
           name: currentName || undefined,
