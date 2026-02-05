@@ -1,7 +1,8 @@
 # Тестовое задание
 ну это тестовое задание, возьмите, пожалуйста, на практику. буду стараться
 
-https://catgobebra.github.io/test-task
+https://catgobebra.github.io/test-task 
+(несовсем стабильно работает, для гитхаба заменил browser на hash router)
 
 использовал *react query* и *tailwind* потому что не запрещено
 
