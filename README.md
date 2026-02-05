@@ -1,7 +1,7 @@
 # Тестовое задание
 ну это тестовое задание, возьмите, пожалуйста, на практику. буду стараться
 
-https://catgobebra.github.io/test-task/employees
+https://catgobebra.github.io/test-task
 
 использовал *react query* и *tailwind* потому что не запрещено
 
