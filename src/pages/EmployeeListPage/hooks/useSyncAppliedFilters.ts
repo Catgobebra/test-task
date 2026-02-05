@@ -40,10 +40,6 @@ export const useSyncAppliedFilters = ({
     appliedFilters.name,
     appliedFilters.position,
     appliedFilters.stack,
-    currentGender,
-    currentName,
-    currentPosition,
-    currentStack,
     setAppliedFilters,
   ]);
 };

@@ -18,12 +18,11 @@ import FiltersToolbar from '../FiltersToolbar/FiltersToolbar';
 import { useSyncAppliedFilters } from '../../hooks/useSyncAppliedFilters';
 
   const EmployeeListPage = observer(() => {
+    useSyncFiltersWithUrl()
     const currentName = SearchStore.debouncedQuery
     const currentGender = filterStore.getFilterValues('gender')
     const currentPosition = filterStore.getFilterValues('position')
     const currentStack = filterStore.getFilterValues('stack')
-
-    useSyncFiltersWithUrl()
 
     const [appliedFilters, setAppliedFilters] = useState<FiltersState>({
       name: undefined,
@@ -40,6 +39,8 @@ import { useSyncAppliedFilters } from '../../hooks/useSyncAppliedFilters';
       appliedFilters,
       setAppliedFilters,
     });
+
+    
       const handleApply = () => {
         setAppliedFilters({
           name: currentName || undefined,
